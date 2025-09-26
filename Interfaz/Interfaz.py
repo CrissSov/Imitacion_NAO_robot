@@ -9,7 +9,7 @@ from naoqi import ALProxy
 
 # Configuración del robot
 ROBOT_IP = "localhost"  # Cambiar a la IP real del NAO
-PORT = 60085  # 9559
+PORT = 56749  # 9559
 
 # Cargar ejercicios desde JSON
 with open("../actualizar robot/comportamientos.json", "r") as f:
@@ -73,13 +73,11 @@ def ejecutar_programa_imitacion():
     tts = ALProxy("ALTextToSpeech", ROBOT_IP, PORT)
     
     global proceso_imitacion
-    python3_path = r"C:\Users\sover\.conda\envs\mi_entorno_310\python.exe"
-    script_path = r"C:\Users\sover\OneDrive\Escritorio\Version2\Vision_comp.py"
-
+    python3_path = r"C:\Users\sover\anaconda3\envs\mi_entorno_310"
+    script_path = r"C:\Users\sover\Desktop\SeminarioII\vision_computacional_NAO\Vision_comp.py"
     try:
         proceso_imitacion = subprocess.Popen([python3_path, script_path])
         # === INICIAR IMITACIÓN ===
-        tts.say("Ahora jugaremos a la imitación")
         threading.Thread(target=ejecutar_programa_imitacion).start()
         # === INSTRUCCIONES DE IMITACIÓN ===
         imitacion_instrucciones = basicos[1]  # segundo behavior
