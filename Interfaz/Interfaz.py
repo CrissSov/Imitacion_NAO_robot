@@ -9,7 +9,7 @@ from naoqi import ALProxy
 
 # Configuración del robot
 ROBOT_IP = "localhost"  # Cambiar a la IP real del NAO
-PORT = 60085  # 9559
+PORT = 53306  # 9559
 
 # Cargar ejercicios desde JSON
 with open("../actualizar robot/comportamientos.json", "r") as f:
@@ -118,57 +118,58 @@ def detener_programa_imitacion():
     proceso_imitacion = None
 
 ##Este inicia todo el flujo del programa
-def ejecutar_sesion(tiempo_total_min, rutina,nombre=""):
+def ejecutar_sesion(tiempo_total_min, rutina, nombre=""):
     """
     Maneja la sesión: saludo, ejercicios e inicia imitación.
     La despedida se ejecuta al terminar el temporizador.
     """
-    if not rutina:
-        tkMessageBox.showinfo("Info", "No hay ejercicios en la rutina para ejecutar.")
-        return
-
     try:
         bm = ALProxy("ALBehaviorManager", ROBOT_IP, PORT)
         tts = ALProxy("ALTextToSpeech", ROBOT_IP, PORT)
         posture = ALProxy("ALRobotPosture", ROBOT_IP, PORT)
+
+        # === SALUDO ===
         if nombre:
             tts.say("Hola {}, bienvenido a tu sesión de pausa activa".format(nombre))
         else:
             tts.say("Hola, bienvenido a tu sesión de pausa activa")
 
-        # === SALUDO ===
         saludo = basicos[0]  # primer behavior
         if bm.isBehaviorInstalled(saludo):
             if bm.isBehaviorRunning(saludo):
-                    bm.stopBehavior(saludo)
-            bm.runBehavior(saludo)  # bloqueante, pero dentro del hilo
+                bm.stopBehavior(saludo)
+            bm.runBehavior(saludo)
             while bm.isBehaviorRunning(saludo):
-                    time.sleep(0.5)
-
-        # === EJECUTAR RUTINA DE EJERCICIOS ===
-        for r in rutina:
-            behavior_name = r["id"]
-            repeticiones = r.get("repeticiones", 1)
-            nombre = r.get("nombre", "ejercicio")
-
-            if not bm.isBehaviorInstalled(behavior_name):
-                print("[!] No está instalado:", behavior_name)
-                continue
-
-            tts.say("Listo. Iniciamos el ejercicio {}".format(nombre))
-            time.sleep(0.5)
-
-            for i in range(repeticiones):
-                bm.runBehavior(behavior_name)
-                print("Repeticion {}".format(i + 1))
-                #tts.say(str(i + 1))
                 time.sleep(0.5)
 
-            posture.goToPosture("StandInit", 0.5)
-            tts.say("Has terminado {}".format(nombre))
-            time.sleep(1)
+        # === RUTINA DE EJERCICIOS O DIRECTO A IMITACIÓN ===
+        if rutina:  # hay ejercicios
+            for r in rutina:
+                behavior_name = r["id"]
+                repeticiones = r.get("repeticiones", 1)
+                nombre = r.get("nombre", "ejercicio")
+
+                if not bm.isBehaviorInstalled(behavior_name):
+                    print("[!] No está instalado:", behavior_name)
+                    continue
+
+                tts.say("Listo. Iniciamos el ejercicio {}".format(nombre))
+                time.sleep(0.5)
+
+                for i in range(repeticiones):
+                    bm.runBehavior(behavior_name)
+                    print("Repetición {}".format(i + 1))
+                    time.sleep(0.5)
+
+                #posture.goToPosture("StandInit", 0.5)
+                tts.say("Has terminado {}".format(nombre))
+                time.sleep(1)
+        else:  # no hay ejercicios
+            tts.say("Hoy no haremos ejercicios. Vamos directo al juego de imitación.")
+        
+        # === INICIAR IMITACIÓN ===
+        ejecutar_programa_imitacion()
 
     except Exception as e:
         tkMessageBox.showerror("Error", "No se pudo ejecutar la sesión:\n{}".format(e))
         detener_programa_imitacion()
-        

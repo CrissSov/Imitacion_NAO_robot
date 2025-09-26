@@ -15,7 +15,7 @@ import time
 from naoqi import ALProxy
 
 NAO_IP = "localhost"  # Cambiar a la IP de tu robot NAO
-NAO_PORT = 60085      # Puerto NAOqi (por defecto 9559)
+NAO_PORT = 53306  # Puerto NAOqi (por defecto 9559)
 SOCK_IP = "127.0.0.1"
 SOCK_PORT = 6000       # Puerto para recibir ángulos JSON
 BUFFER_SIZE = 4096

@@ -1,7 +1,7 @@
 from naoqi import ALProxy
 
 ROBOT_IP = "localhost"  # Reemplaza con la IP real de tu NAO
-PORT = 60085
+PORT = 53306# 9559
 
 try:
     # Crear proxy al BehaviorManager
