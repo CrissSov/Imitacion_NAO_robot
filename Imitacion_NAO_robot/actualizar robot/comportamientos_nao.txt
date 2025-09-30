@@ -1,0 +1,14 @@
+Comportamientos instalados en NAO:
+
+.lastUploadedChoregrapheBehavior/behavior_1
+.lastUploadedChoregrapheBehavior/bienvenida
+coreografia-f2984b/behavior_1
+despedida-afd07c/behavior_1
+despedida-afd07c/bienvenida
+ejercicios-552ddf/behavior_1
+ejercicios-552ddf/brazos2
+ejercicios-552ddf/brazos3
+ejercicios-552ddf/brazos4
+imitacion-f5ffbe/behavior_1
+saludar-909889/behavior_1
+saludar-909889/BienvenidaTerapia
