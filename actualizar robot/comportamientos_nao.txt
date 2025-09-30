@@ -1,16 +1,14 @@
 Comportamientos instalados en NAO:
 
-brazosalternado-0b28ae/behavior_1
-brazosalternado-0b28ae/BrazosU
-untitled-69c3be/behavior_1
+.lastUploadedChoregrapheBehavior/behavior_1
+.lastUploadedChoregrapheBehavior/bienvenida
+coreografia-f2984b/behavior_1
+despedida-afd07c/behavior_1
+despedida-afd07c/bienvenida
 ejercicios-552ddf/behavior_1
 ejercicios-552ddf/brazos2
 ejercicios-552ddf/brazos3
 ejercicios-552ddf/brazos4
-despedida-afd07c/behavior_1
-despedida-afd07c/bienvenida
 imitacion-f5ffbe/behavior_1
 saludar-909889/behavior_1
 saludar-909889/BienvenidaTerapia
-.lastUploadedChoregrapheBehavior/behavior_1
-coreografia-f2984b/behavior_1
